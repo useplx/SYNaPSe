@@ -1,8 +1,8 @@
 #include "syn/cli/command.hpp"
 #include "syn/cli/workspace.hpp"
 
-#include <format>
 #include <print>
+#include <string>
 
 namespace Syn::Cli {
     namespace {
@@ -18,10 +18,16 @@ namespace Syn::Cli {
                                            std::string_view prefix, bool last) -> void {
                         const Package::Resolved::Package &package = packages.at(index);
                         const auto &provides = package.project.provides();
+                        std::string capabilities;
+                        for (const std::string &provide : provides) {
+                            capabilities += capabilities.empty() ? "  [" : ", ";
+                            capabilities += provide;
+                        }
+                        if (!capabilities.empty())
+                            capabilities += ']';
                         std::println(
                             "{}{}{}{}", prefix, prefix.empty() ? "" : (last ? "└── " : "├── "),
-                            package.project.metadata().name,
-                            provides.empty() ? std::string{} : std::format("  {::s}", provides));
+                            package.project.metadata().name, capabilities);
 
                         const std::string child =
                             prefix.empty() ? std::string{}

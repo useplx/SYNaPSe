@@ -26,14 +26,15 @@ namespace Syn::Build {
         enum class Mark { Visiting, Complete };
         std::map<std::string, Mark, std::less<>> marks;
         std::vector<std::string> result;
+        const auto *nodes = &nodes_;
         const auto visit = [&](this auto &&self, const std::string &name) -> void {
             if (const auto mark = marks.find(name); mark != marks.end()) {
                 if (mark->second == Mark::Visiting)
                     Errors::at(Error::Graph::Cycle, name);
                 return;
             }
-            const auto node = nodes_.find(name);
-            if (node == nodes_.end())
+            const auto node = nodes->find(name);
+            if (node == nodes->end())
                 Errors::at(Error::Node::Dependency::Unknown, name);
             marks.emplace(name, Mark::Visiting);
             for (const std::string &dependency : node->second.dependencies)
