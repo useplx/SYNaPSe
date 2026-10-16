@@ -40,7 +40,7 @@ name = "assistant"
 version = "0.1.0"
 
 [dependencies]
-qwen = { path = "../Qwen3_VL" }
+qwen = { path = "../Qwen3.5" }
 
 [toolchains.host-cpp]
 language = "cpp"
@@ -278,7 +278,7 @@ name = "consumer"
 version = "1.0.0"
 
 [dependencies]
-qwen = { path = "../Qwen3_VL", config = { context = 2048 } }
+qwen = { path = "../Qwen3.5", config = { context = 2048 } }
 )toml");
 
     const auto project = Syn::Config::Project::load(directory.path() / "synps.toml");

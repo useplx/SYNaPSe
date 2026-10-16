@@ -36,7 +36,7 @@ SYNPS_TEST(resolves_entrypoint_package_alias) {
     Tree tree;
     tree.add("model", R"toml(
 [package]
-name = "qwen3-vl"
+name = "qwen3.5"
 version = "1.0.0"
 )toml");
     const auto application = tree.add("application", R"toml(
@@ -52,10 +52,10 @@ generator = { path = "../model" }
         Syn::Package::Resolver({tree.root() / "cache"}).resolve(application / "synps.toml");
     const auto entrypoint = resolution.entrypoint();
     Syn::Testing::require(entrypoint.has_value(), "entrypoint was not resolved");
-    Syn::Testing::require(entrypoint->path == "qwen3-vl",
+    Syn::Testing::require(entrypoint->path == "qwen3.5",
                           "entrypoint did not use the selected package name");
     Syn::Testing::require(resolution.packages().at(entrypoint->package).project.metadata().name ==
-                              "qwen3-vl",
+                              "qwen3.5",
                           "entrypoint resolved to the consumer instead of its owner");
 }
 
@@ -90,7 +90,7 @@ version = "1.0.0"
 )toml");
     tree.add("qwen", R"toml(
 [package]
-name = "qwen3-vl"
+name = "qwen3.5"
 version = "1.0.0"
 [dependencies]
 tokenizer = { path = "../tokenizer" }
@@ -113,7 +113,7 @@ generator = "qwen"
         Syn::Package::Resolver({tree.root() / "cache"}).resolve(application / "synps.toml");
     Syn::Testing::require(resolution.packages().size() == 3, "transitive package was not resolved");
     const auto provider = resolution.bindings().at("generator");
-    Syn::Testing::require(resolution.packages().at(provider).project.metadata().name == "qwen3-vl",
+    Syn::Testing::require(resolution.packages().at(provider).project.metadata().name == "qwen3.5",
                           "explicit capability binding selected the wrong package");
 }
 

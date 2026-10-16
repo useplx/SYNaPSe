@@ -872,7 +872,7 @@ namespace {
         // O manifest referencia codigo pelo nome que os packages declararam em
         // `exports`. Conferir aqui e barato; deixar passar significa carregar
         // os pesos, comecar a compilar o grafo e so entao descobrir que
-        // `qwen3-vl:decodr` nao existe.
+        // `qwen3.5:decodr` nao existe.
         {
             const Config::Value &document = resolution.root().project.document();
             const std::set<std::string> available = declared_exports(resolution);

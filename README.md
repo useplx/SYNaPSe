@@ -79,7 +79,7 @@ The install step installs both `synps` and its Compiler library. Set
 Published package:
 
 ```bash
-synps add qwen3.5 --git https://github.com/useplx/Qwen3_VL.git
+synps add qwen3.5 --git https://github.com/useplx/Qwen3.5.git
 ```
 
 Local package under development:
@@ -223,7 +223,7 @@ name = "assistant"
 package = "qwen"
 
 [dependencies]
-qwen = { git = "https://github.com/useplx/Qwen3_VL.git", version = "v1.0.0" }
+qwen = { git = "https://github.com/useplx/Qwen3.5.git", version = "v1.0.0" }
 ```
 
 `uses` links the output of another build package from the same project:
