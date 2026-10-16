@@ -1,0 +1,30 @@
+[package]
+name = "install-graph"
+version = "1.0.0"
+
+[entrypoint]
+package = "install-graph"
+
+[dependencies]
+codec = { path = "codec" }
+
+[myelin]
+formats = ["codec:unused"]
+
+[build.graph]
+namespace = "installed"
+toolchain = "cpp"
+sources = ["graph.cpp"]
+exports = ["model"]
+
+[policies."*"]
+dtype = "u8"
+
+[policies."*".backend]
+device = "local"
+
+[[policies."*".schemes]]
+format = "codec:unused"
+scope = "constant"
+lifetime = "immutable"
+update = "none"

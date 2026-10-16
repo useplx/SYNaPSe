@@ -1,0 +1,8 @@
+[package]
+name = "codec"
+version = "1.0.0"
+
+[build.graph]
+toolchain = "cpp"
+sources = ["codec.cpp"]
+exports = ["unused"]

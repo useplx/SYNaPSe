@@ -1,0 +1,27 @@
+[package]
+name = "install-check"
+version = "1.0.0"
+
+[entrypoint]
+package = "install-check"
+
+[myelin]
+formats = ["install-check:unused"]
+
+[build.native]
+toolchain = "cpp"
+sources = ["echo.cpp"]
+
+[build.graph.marker]
+toolchain = "cpp"
+sources = ["marker.cpp"]
+exports = ["model", "marker", "unused"]
+
+[policies."*"]
+dtype = "u8"
+
+[policies."*".backend]
+device = "local"
+
+[[policies."*".schemes]]
+format = "install-check:unused"

@@ -1,0 +1,41 @@
+#pragma once
+
+#include "syn/functional/attention.hpp"
+#include "syn/functional/binary.hpp"
+#include "syn/functional/bitcastconvert.hpp"
+#include "syn/functional/broadcast.hpp"
+#include "syn/functional/causal_conv1d.hpp"
+#include "syn/functional/clamp.hpp"
+#include "syn/functional/comparison.hpp"
+#include "syn/functional/concatenate.hpp"
+#include "syn/functional/const.hpp"
+#include "syn/functional/contraction.hpp"
+#include "syn/functional/conv2d.hpp"
+#include "syn/functional/convert.hpp"
+#include "syn/functional/dynamicslice.hpp"
+#include "syn/functional/dynamicupdateslice.hpp"
+#include "syn/functional/equal.hpp"
+#include "syn/functional/gated_delta_rule.hpp"
+#include "syn/functional/gather.hpp"
+#include "syn/functional/iota.hpp"
+#include "syn/functional/loop.hpp"
+#include "syn/functional/map.hpp"
+#include "syn/functional/matmul.hpp"
+#include "syn/functional/maxpool2d.hpp"
+#include "syn/functional/reducemax.hpp"
+#include "syn/functional/reducesum.hpp"
+#include "syn/functional/region.hpp"
+#include "syn/functional/reshape.hpp"
+#include "syn/functional/reverse.hpp"
+#include "syn/functional/select.hpp"
+#include "syn/functional/slice.hpp"
+#include "syn/functional/structural.hpp"
+#include "syn/functional/transpose.hpp"
+#include "syn/functional/unary.hpp"
+#include "syn/functional/upsample.hpp"
+
+#include "syn/operations.hpp"
+
+namespace Syn::Compiler {
+    void register_emits(Operations &operations);
+}

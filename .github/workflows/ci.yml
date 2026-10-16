@@ -1,0 +1,63 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-24.04
+        env:
+            CC: gcc-14
+            CXX: g++-14
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  path: SYNaPSe
+            - uses: actions/checkout@v4
+              with:
+                  repository: useplx/MyeLiN
+                  path: MyeLiN
+                  submodules: recursive
+            - uses: actions/checkout@v4
+              with:
+                  repository: useplx/Quantizations
+                  path: Quantizations
+            - name: Install build tools
+              run: sudo apt-get update && sudo apt-get install -y gcc-14 g++-14 lld ninja-build
+            - name: Configure
+              run: >-
+                  cmake -S SYNaPSe -B build -G Ninja
+                  -DCMAKE_BUILD_TYPE=Release
+                  -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=lld -Wl,--threads=2"
+                  -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=lld -Wl,--threads=2"
+                  -DMLN_ROOT=${{ github.workspace }}/MyeLiN
+                  -DPLEX_QUANTIZATIONS_ROOT=${{ github.workspace }}/Quantizations
+            - name: Build
+              run: cmake --build build --parallel 1
+            - name: Test
+              run: ctest --test-dir build --output-on-failure
+            - name: Validate compiler ABI exports
+              run: |
+                  nm -D --defined-only build/src/compiler/libsyn_compiler_api.so \
+                    | awk '$2 != "A" {print $3}' \
+                    | grep -Fx 'mln_compiler_api_get@@SYN_COMPILER_1' > /dev/null
+                  test "$(nm -D --defined-only build/src/compiler/libsyn_compiler_api.so \
+                    | awk '$2 != "A" {count++} END {print count}')" -eq 17
+                  readelf -d build/src/compiler/libsyn_compiler_api.so \
+                    | grep -Fq 'Library soname: [libsyn_compiler_api.so.1]'
+            - name: Verify installation
+              run: |
+                  cmake --install build --prefix "${{ runner.temp }}/synapse"
+                  test -x "${{ runner.temp }}/synapse/bin/synps"
+                  test "$("${{ runner.temp }}/synapse/bin/synps" --version)" = "synps 1.0.0"
+                  test -L "${{ runner.temp }}/synapse/lib/libsyn_compiler_api.so"
+                  test -f "${{ runner.temp }}/synapse/lib/libsyn_compiler_api.so.1"
+                  readelf -d "${{ runner.temp }}/synapse/lib/libsyn_compiler_api.so.1" \
+                    | grep -Fq 'Library soname: [libsyn_compiler_api.so.1]'
+            - name: Build with relocated installation
+              run: python3 SYNaPSe/tests/install/check.py build

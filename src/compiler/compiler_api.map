@@ -1,0 +1,28 @@
+SYN_COMPILER_1 {
+    global:
+        mln_compiler_api_get;
+    local:
+        *;
+};
+
+# Compiler extensions consume Mln::Ir aliases to the pinned compiler types.
+# This host ABI is revision-specific, distinct from the stable C service ABI.
+SYN_COMPILER_HOST_1 {
+    global:
+        extern "C++" {
+            "llvm::errs()";
+            "llvm::raw_ostream::write(char const*, unsigned long)";
+            "mlir::Attribute::getContext() const";
+            "mlir::Attribute::print(llvm::raw_ostream&, bool) const";
+            "mlir::NamedAttrList::NamedAttrList(mlir::DictionaryAttr)";
+            "mlir::NamedAttrList::getDictionary(mlir::MLIRContext*) const";
+            "mlir::NamedAttrList::set(mlir::StringAttr, mlir::Attribute)";
+            "mlir::Operation::getInherentAttr(llvm::StringRef)";
+            "mlir::Operation::setInherentAttr(mlir::StringAttr, mlir::Attribute)";
+            "mlir::StringAttr::get(mlir::MLIRContext*, llvm::Twine const&)";
+            "mlir::StringAttr::getValue() const";
+            "mlir::SuccessorRange::SuccessorRange(mlir::Operation*)";
+            "mlir::Value::print(llvm::raw_ostream&) const";
+            "mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(llvm::StringRef)";
+        };
+} SYN_COMPILER_1;

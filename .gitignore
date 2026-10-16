@@ -1,0 +1,17 @@
+/build/
+/build-*/
+/cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+*.o
+*.a
+*.so
+*.exe
+.cache/
+__pycache__/
+*.py[cod]
+
+# Generated packages and local release archives
+*.mln
+/SYNaPSe.zip
