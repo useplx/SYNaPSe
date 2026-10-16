@@ -60,6 +60,8 @@ add_library(synps_core SHARED
     src/toolchain/zig.cpp
 )
 target_include_directories(synps_core PUBLIC include)
+target_include_directories(synps_core SYSTEM PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/third_party/tomlplusplus/include")
 target_link_libraries(synps_core PUBLIC mln_package PRIVATE dl)
 target_compile_features(synps_core PUBLIC cxx_std_23)
 target_compile_options(synps_core PRIVATE -Wall -Wextra -Wshadow)
