@@ -24,13 +24,13 @@ namespace Syn::Compiler {
         struct Export {
 
                 enum class Kind : uint32_t {
-                    Graph = mln_package_graph,
-                    Codec = mln_package_codec,
-                    Hook = mln_package_hook,
-                    CodecCompatibility = mln_package_codec_compatibility,
-                    OperationCompatibility = mln_package_operation_compatibility,
-                    LoweringCompatibility = mln_package_lowering_compatibility,
-                    BackendCompatibility = mln_package_backend_compatibility,
+                    Graph = mln_package_export_graph,
+                    Codec = mln_package_export_codec,
+                    Hook = mln_package_export_hook,
+                    CodecCompatibility = mln_package_export_codec_compatibility,
+                    OperationCompatibility = mln_package_export_operation_compatibility,
+                    LoweringCompatibility = mln_package_export_lowering_compatibility,
+                    BackendCompatibility = mln_package_export_backend_compatibility,
                 };
 
                 std::string package;

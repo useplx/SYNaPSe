@@ -127,6 +127,7 @@ namespace Syn {
             E442 = 442,
             E446 = 446,
             E447 = 447,
+            E448 = 448,
 
             E501 = 501,
             E502 = 502,
@@ -157,6 +158,9 @@ namespace Syn {
             namespace Source {
                 inline constexpr Code Invalid = Code::E415;
                 inline constexpr Code Ambiguous = Code::E416;
+            }
+            namespace Subdir {
+                inline constexpr Code Invalid = Code::E448;
             }
         }
         namespace Capability {

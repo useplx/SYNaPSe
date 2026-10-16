@@ -411,3 +411,20 @@ type = "uint32"
     }
     Syn::Testing::require(false, "legacy config-schema section was accepted");
 }
+
+SYNPS_TEST(loads_git_dependency_subdirectory) {
+    Directory directory;
+    write(directory.path() / "synps.toml", R"toml(
+[package]
+name = "consumer"
+version = "1.0.0"
+
+[dependencies]
+f16 = { git = "https://github.com/useplx/Quantizations.git", version = "v1.0.0", subdir = "F16" }
+)toml");
+
+    const auto project = Syn::Config::Project::load(directory.path() / "synps.toml");
+    const auto &dependency =
+        std::get<Syn::Config::Dependency::Git>(project.dependencies().at("f16"));
+    Syn::Testing::require(dependency.subdir == "F16", "Git dependency subdir was not retained");
+}

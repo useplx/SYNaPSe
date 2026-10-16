@@ -12,10 +12,11 @@ namespace Syn::Toolchain {
         constexpr const char *SDK_CORE[] = {
             "src/sdk/buffer.cpp",     "src/sdk/modules.cpp",    "src/sdk/orchestrations.cpp",
             "src/sdk/operations.cpp", "src/sdk/parameters.cpp", "src/sdk/module.cpp",
-            "src/sdk/tensor.cpp",     "src/sdk/audio/dsp.cpp",
+            "src/sdk/tensor.cpp",
         };
 
         constexpr const char *SDK_WASM[] = {"src/sdk/session.cpp"};
+        constexpr const char *SDK_HOST[] = {"src/sdk/audio/dsp.cpp"};
         constexpr const char *SDK_NN[] = {
             "src/sdk/nn/linear.cpp",
             "src/sdk/nn/conv2d.cpp",
@@ -110,6 +111,9 @@ namespace Syn::Toolchain {
                             arguments.push_back((Myelin::root() / source).string());
                         if (request.runtime == Runtime::Wasm)
                             for (const char *source : SDK_WASM)
+                                arguments.push_back((Myelin::root() / source).string());
+                        else
+                            for (const char *source : SDK_HOST)
                                 arguments.push_back((Myelin::root() / source).string());
                     }
 

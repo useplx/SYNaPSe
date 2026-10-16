@@ -25,6 +25,11 @@ namespace Syn::Package {
                 value.pop_back();
             return value;
         }
+
+        bool contains(const std::filesystem::path &root, const std::filesystem::path &path) {
+            const auto mismatch = std::mismatch(root.begin(), root.end(), path.begin(), path.end());
+            return mismatch.first == root.end();
+        }
     }
 
     class Resolver::State {
@@ -197,7 +202,14 @@ namespace Syn::Package {
                     trim(System::run_checked({"git", {"rev-parse", "HEAD"}, directory, {}},
                                              "resolving package revision")
                              .output);
-                return add(directory / "synps.toml", {Source::Kind::Git, dependency.url, revision});
+                const std::filesystem::path root = std::filesystem::weakly_canonical(directory);
+                const std::filesystem::path package =
+                    std::filesystem::weakly_canonical(root / dependency.subdir);
+                if (dependency.subdir.is_absolute() || !contains(root, package))
+                    Errors::at(Error::Dependency::Subdir::Invalid, "dependencies." + name,
+                               dependency.subdir.string());
+                return add(package / "synps.toml",
+                           {Source::Kind::Git, dependency.url, revision});
             }
     };
 

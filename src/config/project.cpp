@@ -206,7 +206,8 @@ namespace Syn::Config {
                 else if (!git.empty())
                     result.dependencies_.emplace(
                         name,
-                        Dependency::Git{git, text(*table, "rev", "dependencies." + name), version});
+                        Dependency::Git{git, text(*table, "rev", "dependencies." + name), version,
+                                        text(*table, "subdir", "dependencies." + name)});
                 else
                     result.dependencies_.emplace(name, Dependency::Registry{version});
             }

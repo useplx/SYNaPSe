@@ -35,6 +35,7 @@ namespace Syn::Config {
                 std::string url;
                 std::string revision;
                 std::string version;
+                std::filesystem::path subdir;
         };
         struct Registry {
                 std::string version;

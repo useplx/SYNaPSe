@@ -18,19 +18,19 @@ namespace Syn::Compiler {
 
         Package::Export::Kind checked_kind(uint32_t kind, std::string_view id) {
             switch (kind) {
-            case mln_package_graph:
+            case mln_package_export_graph:
                 return Package::Export::Kind::Graph;
-            case mln_package_codec:
+            case mln_package_export_codec:
                 return Package::Export::Kind::Codec;
-            case mln_package_hook:
+            case mln_package_export_hook:
                 return Package::Export::Kind::Hook;
-            case mln_package_codec_compatibility:
+            case mln_package_export_codec_compatibility:
                 return Package::Export::Kind::CodecCompatibility;
-            case mln_package_operation_compatibility:
+            case mln_package_export_operation_compatibility:
                 return Package::Export::Kind::OperationCompatibility;
-            case mln_package_lowering_compatibility:
+            case mln_package_export_lowering_compatibility:
                 return Package::Export::Kind::LoweringCompatibility;
-            case mln_package_backend_compatibility:
+            case mln_package_export_backend_compatibility:
                 return Package::Export::Kind::BackendCompatibility;
             default:
                 raise(Errors::Package::Registry::Export::Kind::Unknown, id, kind);

@@ -4,15 +4,15 @@ namespace {
     int32_t invoke(const mln_package_invocation *, void *) { return 0; }
 
     const mln_package_export exports[] = {
-        {sizeof(mln_package_export), mln_package_graph, "calculator", invoke, nullptr},
-        {sizeof(mln_package_export), mln_package_codec, "f16", invoke, nullptr},
-        {sizeof(mln_package_export), mln_package_codec_compatibility, "compatibility", invoke,
+        {sizeof(mln_package_export), mln_package_export_graph, "calculator", invoke, nullptr},
+        {sizeof(mln_package_export), mln_package_export_codec, "f16", invoke, nullptr},
+        {sizeof(mln_package_export), mln_package_export_codec_compatibility, "compatibility", invoke,
          nullptr},
-        {sizeof(mln_package_export), mln_package_operation_compatibility, "operation_compatibility",
+        {sizeof(mln_package_export), mln_package_export_operation_compatibility, "operation_compatibility",
          invoke, nullptr},
-        {sizeof(mln_package_export), mln_package_lowering_compatibility, "lowering_compatibility",
+        {sizeof(mln_package_export), mln_package_export_lowering_compatibility, "lowering_compatibility",
          invoke, nullptr},
-        {sizeof(mln_package_export), mln_package_backend_compatibility, "backend_compatibility",
+        {sizeof(mln_package_export), mln_package_export_backend_compatibility, "backend_compatibility",
          invoke, nullptr},
     };
 

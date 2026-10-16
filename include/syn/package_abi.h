@@ -8,13 +8,13 @@ extern "C" {
 #endif
 
 enum mln_package_export_kind {
-    mln_package_graph = 1,
-    mln_package_codec = 2,
-    mln_package_hook = 3,
-    mln_package_codec_compatibility = 4,
-    mln_package_operation_compatibility = 5,
-    mln_package_lowering_compatibility = 6,
-    mln_package_backend_compatibility = 7,
+    mln_package_export_graph = 1,
+    mln_package_export_codec = 2,
+    mln_package_export_hook = 3,
+    mln_package_export_codec_compatibility = 4,
+    mln_package_export_operation_compatibility = 5,
+    mln_package_export_lowering_compatibility = 6,
+    mln_package_export_backend_compatibility = 7,
 };
 
 struct mln_package_invocation {

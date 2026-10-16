@@ -193,6 +193,8 @@ namespace Syn {
             return "expected dependency table or version string";
         case Error::Dependency::Source::Ambiguous:
             return "expected exactly one source: path, git, or version";
+        case Error::Dependency::Subdir::Invalid:
+            return "Git dependency subdir must stay inside its repository";
         case Error::Build::Domain::Unknown:
             return "unknown build domain; expected host, native, or wasm";
         case Error::Build::Domain::Empty:
